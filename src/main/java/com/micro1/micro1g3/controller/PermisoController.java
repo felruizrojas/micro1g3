@@ -37,7 +37,7 @@ public class PermisoController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/idPermiso/{idPermiso}")
     public ResponseEntity<Permiso> getById(@PathVariable int id) {
         Permiso permiso = permisoService.findByIdPermiso(id);
         if (permiso != null) {
@@ -46,7 +46,7 @@ public class PermisoController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/idPermiso/{idPermiso}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
         Permiso permiso = permisoService.findByIdPermiso(id);
         if (permiso != null) {

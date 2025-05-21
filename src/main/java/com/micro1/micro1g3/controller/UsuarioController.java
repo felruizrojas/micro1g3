@@ -82,7 +82,7 @@ public class UsuarioController {
 
     // -------------------------------------------------- POR ID --------------------------------------------------
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable int id) {
         Usuario usuario = usuarioService.findByIdUsuario(id);
         if (usuario != null) {
@@ -91,7 +91,7 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Usuario> updateUsuarioById(@PathVariable int id, @RequestBody Usuario usuario) {
         Usuario existente = usuarioService.findByIdUsuario(id);
         if (existente != null) {
@@ -106,7 +106,7 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Void> deleteUsuarioById(@PathVariable int id) {
         Usuario existente = usuarioService.findByIdUsuario(id);
         if (existente != null) {

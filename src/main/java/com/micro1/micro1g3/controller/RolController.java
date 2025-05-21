@@ -37,7 +37,7 @@ public class RolController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/idRol/{idRol}")
     public ResponseEntity<Rol> getById(@PathVariable int id) {
         Rol rol = rolService.findByIdRol(id);
         if (rol != null) {
@@ -46,7 +46,7 @@ public class RolController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/idRol/{idRol}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
         Rol rol = rolService.findByIdRol(id);
         if (rol != null) {
