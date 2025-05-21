@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/api/usuarios")
+
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -26,9 +27,7 @@ public class UsuarioController {
         if (!usuarios.isEmpty()) {
             return new ResponseEntity<>(usuarios, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
 
     @PostMapping
@@ -39,7 +38,5 @@ public class UsuarioController {
         } else {
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
-
     }
-
 }

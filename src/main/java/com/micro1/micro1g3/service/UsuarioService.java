@@ -25,5 +25,4 @@ public class UsuarioService {
     public Usuario findxIdUsuario(int idUsuario){
         return usuarioRepository.findByIdUsuario(idUsuario);
     }
-
 }

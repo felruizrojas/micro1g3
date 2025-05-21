@@ -18,5 +18,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario save(Usuario usuario);
 
     Usuario findByIdUsuario(int idUsuario);
-    
 }
