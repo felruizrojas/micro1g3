@@ -83,8 +83,8 @@ public class UsuarioController {
     // -------------------------------------------------- POR ID --------------------------------------------------
 
     @GetMapping("/idUsuario/{idUsuario}")
-    public ResponseEntity<Usuario> getUsuarioById(@PathVariable int id) {
-        Usuario usuario = usuarioService.findByIdUsuario(id);
+    public ResponseEntity<Usuario> getUsuarioById(@PathVariable int idUsuario) {
+        Usuario usuario = usuarioService.findByIdUsuario(idUsuario);
         if (usuario != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         }
@@ -92,8 +92,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/idUsuario/{idUsuario}")
-    public ResponseEntity<Usuario> updateUsuarioById(@PathVariable int id, @RequestBody Usuario usuario) {
-        Usuario existente = usuarioService.findByIdUsuario(id);
+    public ResponseEntity<Usuario> updateUsuarioById(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
+        Usuario existente = usuarioService.findByIdUsuario(idUsuario);
         if (existente != null) {
             existente.setNombrePrimero(usuario.getNombrePrimero());
             existente.setNombreSegundo(usuario.getNombreSegundo());
@@ -107,10 +107,10 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/idUsuario/{idUsuario}")
-    public ResponseEntity<Void> deleteUsuarioById(@PathVariable int id) {
-        Usuario existente = usuarioService.findByIdUsuario(id);
+    public ResponseEntity<Void> deleteUsuarioById(@PathVariable int idUsuario) {
+        Usuario existente = usuarioService.findByIdUsuario(idUsuario);
         if (existente != null) {
-            usuarioService.deleteById(id);
+            usuarioService.deleteById(idUsuario);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
