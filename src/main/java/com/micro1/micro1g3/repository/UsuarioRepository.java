@@ -18,4 +18,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario save(Usuario usuario);
 
     Usuario findByIdUsuario(int idUsuario);
+
+    void deleteById(int idUsuario);
+
+    Usuario findByRun(String run);
+
+    void deleteByRun(String run);
 }

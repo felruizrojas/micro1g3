@@ -18,11 +18,23 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario save(Usuario usuario){
+    public Usuario save(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario findxIdUsuario(int idUsuario){
+    public Usuario findByRun(String run) {
+        return usuarioRepository.findByRun(run);
+    }
+
+    public void deleteByRun(String run) {
+        usuarioRepository.deleteByRun(run);
+    }
+
+    public Usuario findByIdUsuario(int idUsuario) {
         return usuarioRepository.findByIdUsuario(idUsuario);
+    }
+
+    public void deleteById(int idUsuario) {
+        usuarioRepository.deleteById(idUsuario);
     }
 }
