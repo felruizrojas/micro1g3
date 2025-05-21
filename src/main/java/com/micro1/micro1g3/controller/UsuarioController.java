@@ -116,3 +116,5 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+
+//SE DEBEN AGREGAR OTROS METODOS
