@@ -80,6 +80,15 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        if (usuarioService.existePorRun(usuario.getRun())) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409: Conflicto por run duplicado
+        }
+        Usuario creado = usuarioService.save(usuario);
+        return new ResponseEntity<>(creado, HttpStatus.CREATED); // 201: Creado
+    }
+
     // -------------------------------------------------- POR ID --------------------------------------------------
 
     @GetMapping("/idUsuario/{idUsuario}")
@@ -117,4 +126,4 @@ public class UsuarioController {
     }
 }
 
-//SE DEBEN AGREGAR OTROS METODOS
+// SE DEBEN AGREGAR OTROS METODOS

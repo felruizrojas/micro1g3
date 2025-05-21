@@ -37,4 +37,8 @@ public class UsuarioService {
     public void deleteById(int idUsuario) {
         usuarioRepository.deleteById(idUsuario);
     }
+
+    public boolean existePorRun(String run) {
+        return usuarioRepository.existsByRun(run);
+    }
 }

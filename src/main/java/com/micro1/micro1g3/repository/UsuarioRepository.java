@@ -24,4 +24,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findByRun(String run);
 
     void deleteByRun(String run);
+
+    boolean existsByRun(String run);
 }
