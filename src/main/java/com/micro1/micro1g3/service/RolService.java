@@ -29,4 +29,8 @@ public class RolService {
     public void deleteByIdRol(int idRol) {
         rolRepository.deleteByIdRol(idRol);
     }
+
+    public Rol findById(int idRol) {
+        return rolRepository.findByIdRol(idRol); // 👈 uso directo sin Optional
+    }
 }

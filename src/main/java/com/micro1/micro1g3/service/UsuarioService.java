@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
+import com.micro1.micro1g3.repository.RolRepository;
 import com.micro1.micro1g3.repository.UsuarioRepository;
 
 @Service

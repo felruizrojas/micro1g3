@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
+import com.micro1.micro1g3.service.RolService;
 import com.micro1.micro1g3.service.UsuarioService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private RolService rolService;
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsuarios() {
         List<Usuario> usuarios = usuarioService.findAll();
@@ -34,7 +39,8 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // -------------------------------------------------- POR RUN --------------------------------------------------
+    // -------------------------------------------------- POR RUN
+    // --------------------------------------------------
 
     @GetMapping("/run/{run}")
     public ResponseEntity<Usuario> getUsuarioByRun(@PathVariable String run) {
@@ -80,16 +86,8 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        if (usuarioService.existePorRun(usuario.getRun())) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409: Conflicto por run duplicado
-        }
-        Usuario creado = usuarioService.save(usuario);
-        return new ResponseEntity<>(creado, HttpStatus.CREATED); // 201: Creado
-    }
-
-    // -------------------------------------------------- POR ID --------------------------------------------------
+    // -------------------------------------------------- POR ID
+    // --------------------------------------------------
 
     @GetMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable int idUsuario) {
@@ -124,6 +122,26 @@ public class UsuarioController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    // --- MÉTODO PARA AGREGAR ROL A USUARIO EXISTENTE
+
+    @PutMapping("/{idUsuario}/rol/{idRol}")
+    public ResponseEntity<Usuario> asignarRolAUsuario(
+            @PathVariable int idUsuario,
+            @PathVariable int idRol) {
+
+        Usuario usuario = usuarioService.findByIdUsuario(idUsuario);
+        Rol rol = rolService.findById(idRol); // asegúrate de inyectar rolService
+
+        if (usuario == null || rol == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        usuario.setRol(rol);
+        Usuario actualizado = usuarioService.save(usuario);
+        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+    }
+
 }
 
 // SE DEBEN AGREGAR OTROS METODOS

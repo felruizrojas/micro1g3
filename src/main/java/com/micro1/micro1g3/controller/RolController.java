@@ -38,8 +38,8 @@ public class RolController {
     }
 
     @GetMapping("/idRol/{idRol}")
-    public ResponseEntity<Rol> getById(@PathVariable int id) {
-        Rol rol = rolService.findByIdRol(id);
+    public ResponseEntity<Rol> getById(@PathVariable int idRol) {
+        Rol rol = rolService.findByIdRol(idRol);
         if (rol != null) {
             return new ResponseEntity<>(rol, HttpStatus.OK);
         }
