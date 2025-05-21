@@ -14,17 +14,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 
-public class usuario {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario")
-
     private int idUsuario;
-    private String nombre;
-    private String apellido;
+
+    @Column(length = 13, nullable = false, unique = true)
+    private String run;
+
+    @Column(length = 50, nullable = false)
+    private String nombrePrimero;
+
+    @Column(length = 50, nullable = true)
+    private String nombreSegundo;
+
+    @Column(length = 50, nullable = false)
+    private String apellidoPaterno;
+
+    @Column(length = 50, nullable = false)
+    private String apellidoMaterno;
+
+    @Column(length = 250, nullable = false)
     private String correo;
+
+    @Column(length = 250, nullable = false)
     private String direccion;
+
     //private Rol rol;
 }
