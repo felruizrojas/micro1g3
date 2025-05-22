@@ -11,7 +11,8 @@ import com.micro1.micro1g3.model.Permiso;
 public interface PermisoRepository extends JpaRepository<Permiso, Integer> {
 
     List<Permiso> findAll();
-
+    
+    @SuppressWarnings("unchecked")
     Permiso save(Permiso permiso);
 
     Permiso findByIdPermiso(int idPermiso);

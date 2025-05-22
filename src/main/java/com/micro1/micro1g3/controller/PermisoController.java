@@ -5,7 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.model.Permiso;
 import com.micro1.micro1g3.service.PermisoService;
@@ -49,7 +56,7 @@ public class PermisoController {
         return new ResponseEntity<>(permiso, HttpStatus.OK);
     }
 
-    @PutMapping("/idPermiso/{idPermiso}")
+    @PatchMapping("/idPermiso/{idPermiso}")
     public ResponseEntity<Permiso> updateById(@PathVariable int idPermiso, @RequestBody Permiso permiso) {
         Permiso updatePermiso = permisoService.findByIdPermiso(idPermiso);
         if (updatePermiso == null) {

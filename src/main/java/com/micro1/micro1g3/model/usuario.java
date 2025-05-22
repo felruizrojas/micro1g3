@@ -1,5 +1,7 @@
 package com.micro1.micro1g3.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class Usuario {
     @Column(length = 50, nullable = false)
     private String nombrePrimero;
 
-    @Column(length = 50, nullable = true) //sin nullable
+    @Column(length = 50, nullable = true) // sin nullable
     private String nombreSegundo;
 
     @Column(length = 50, nullable = false)
@@ -45,6 +47,7 @@ public class Usuario {
     private String direccion;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol") //@JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name = "idRol")
+    @JsonBackReference
     private Rol rol;
 }

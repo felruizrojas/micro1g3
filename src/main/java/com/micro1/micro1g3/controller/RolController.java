@@ -5,10 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.model.Rol;
-import com.micro1.micro1g3.service.PermisoService;
 import com.micro1.micro1g3.service.RolService;
 
 @RestController
@@ -17,9 +23,6 @@ public class RolController {
 
     @Autowired
     private RolService rolService;
-
-        @Autowired
-    private PermisoService permisoService;
 
     // ----- general -----
 
@@ -52,7 +55,7 @@ public class RolController {
         return new ResponseEntity<>(rol, HttpStatus.OK);
     }
 
-    @PutMapping("/idRol/{idRol}")
+    @PatchMapping("/idRol/{idRol}")
     public ResponseEntity<Rol> updateById(@PathVariable int idRol, @RequestBody Rol rol) {
         Rol updateRol = rolService.findByIdRol(idRol);
         if (updateRol == null) {
