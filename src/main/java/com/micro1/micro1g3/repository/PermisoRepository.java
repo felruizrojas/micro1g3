@@ -17,5 +17,5 @@ public interface PermisoRepository extends JpaRepository<Permiso, Integer> {
 
     Permiso findByIdPermiso(int idPermiso);
 
-    void deleteById(int idPermiso);
+    void deleteByIdPermiso(int idPermiso); //AÑADI PERMISO EN EL ID
 }

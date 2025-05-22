@@ -41,7 +41,7 @@ public class UsuarioController {
         if (newUsuario == null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+        return new ResponseEntity<>(newUsuario, HttpStatus.CREATED);
     }
 
     // ----- idUsuario -----

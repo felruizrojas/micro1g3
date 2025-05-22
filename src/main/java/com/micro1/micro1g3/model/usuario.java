@@ -31,7 +31,7 @@ public class Usuario {
     @Column(length = 50, nullable = false)
     private String nombrePrimero;
 
-    @Column(length = 50, nullable = true) // sin nullable
+    @Column(length = 50)
     private String nombreSegundo;
 
     @Column(length = 50, nullable = false)

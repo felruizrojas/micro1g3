@@ -12,7 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -34,12 +35,11 @@ public class Rol {
     @Column(length = 50, nullable = false, unique = true) // sin unique
     private String nombreRol;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    @JsonBackReference
-    private Usuario usuario;
-
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    private List<Usuario> usuarios;
+
+    @ManyToMany
+    @JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "idRol"), inverseJoinColumns = @JoinColumn(name = "idPermiso"))
     private List<Permiso> permisos;
 }

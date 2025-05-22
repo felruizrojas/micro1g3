@@ -1,15 +1,13 @@
 package com.micro1.micro1g3.service;
 
-import java.util.List;
-
+import com.micro1.micro1g3.model.Permiso;
+import com.micro1.micro1g3.repository.PermisoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.micro1.micro1g3.model.Permiso;
-import com.micro1.micro1g3.repository.PermisoRepository;
+import java.util.List;
 
 @Service
-
 public class PermisoService {
 
     @Autowired
@@ -28,6 +26,6 @@ public class PermisoService {
     }
 
     public void deleteById(int idPermiso) {
-        permisoRepository.deleteById(idPermiso);
+        permisoRepository.deleteByIdPermiso(idPermiso);
     }
 }

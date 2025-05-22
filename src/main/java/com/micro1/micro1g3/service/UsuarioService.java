@@ -1,12 +1,11 @@
 package com.micro1.micro1g3.service;
 
-import java.util.List;
-
+import com.micro1.micro1g3.model.Usuario;
+import com.micro1.micro1g3.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.micro1.micro1g3.model.Usuario;
-import com.micro1.micro1g3.repository.UsuarioRepository;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -22,17 +21,13 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    // ----- idUsuario -----
-
     public Usuario findByIdUsuario(int idUsuario) {
-        return usuarioRepository.findById(idUsuario).orElse(null);
+        return usuarioRepository.findByIdUsuario(idUsuario);
     }
 
     public void deleteById(int idUsuario) {
-        usuarioRepository.deleteById(idUsuario);
+        usuarioRepository.deleteByIdUsuario(idUsuario);
     }
-
-    // ----- run -----
 
     public Usuario findByRun(String run) {
         return usuarioRepository.findByRun(run);

@@ -1,12 +1,11 @@
 package com.micro1.micro1g3.service;
 
-import java.util.List;
-
+import com.micro1.micro1g3.model.Rol;
+import com.micro1.micro1g3.repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.micro1.micro1g3.model.Rol;
-import com.micro1.micro1g3.repository.RolRepository;
+import java.util.List;
 
 @Service
 public class RolService {
@@ -27,6 +26,6 @@ public class RolService {
     }
 
     public void deleteById(int idRol) {
-        rolRepository.deleteById(idRol);
+        rolRepository.deleteByIdRol(idRol);
     }
 }
