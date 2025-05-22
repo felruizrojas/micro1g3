@@ -32,5 +32,3 @@ public class Permiso {
     @ManyToMany(mappedBy = "permisos", fetch = FetchType.LAZY)
     private List<Rol> roles;
 }
-
-// con toda la fe

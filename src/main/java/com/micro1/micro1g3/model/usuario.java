@@ -29,7 +29,7 @@ public class Usuario {
     @Column(length = 50, nullable = false)
     private String nombrePrimero;
 
-    @Column(length = 50, nullable = true)
+    @Column(length = 50, nullable = true) //sin nullable
     private String nombreSegundo;
 
     @Column(length = 50, nullable = false)
@@ -38,7 +38,7 @@ public class Usuario {
     @Column(length = 50, nullable = false)
     private String apellidoMaterno;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 100, nullable = false)
     private String correo;
 
     @Column(length = 250, nullable = false)

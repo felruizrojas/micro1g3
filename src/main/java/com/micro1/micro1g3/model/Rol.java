@@ -23,11 +23,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "roles")
 
 public class Rol {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true) //sin unique
     private String nombreRol;
 
     @ManyToMany(fetch = FetchType.LAZY)

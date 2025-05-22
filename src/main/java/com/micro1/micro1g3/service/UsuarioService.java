@@ -5,14 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
-import com.micro1.micro1g3.repository.RolRepository;
 import com.micro1.micro1g3.repository.UsuarioRepository;
 
 @Service
-
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -24,23 +22,26 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario findByRun(String run) {
-        return usuarioRepository.findByRun(run);
-    }
-
-    public void deleteByRun(String run) {
-        usuarioRepository.deleteByRun(run);
-    }
+    // ----- idUsuario -----
 
     public Usuario findByIdUsuario(int idUsuario) {
-        return usuarioRepository.findByIdUsuario(idUsuario);
+        return usuarioRepository.findById(idUsuario).orElse(null);
     }
 
     public void deleteById(int idUsuario) {
         usuarioRepository.deleteById(idUsuario);
     }
 
-    public boolean existePorRun(String run) {
-        return usuarioRepository.existsByRun(run);
+    // ----- run -----
+
+    public Usuario findByRun(String run) {
+        return usuarioRepository.findByRun(run);
+    }
+
+    public void deleteByRun(String run) {
+        Usuario usuario = usuarioRepository.findByRun(run);
+        if (usuario != null) {
+            usuarioRepository.delete(usuario);
+        }
     }
 }

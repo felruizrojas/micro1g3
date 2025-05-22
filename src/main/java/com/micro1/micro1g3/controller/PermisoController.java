@@ -18,41 +18,60 @@ public class PermisoController {
     @Autowired
     private PermisoService permisoService;
 
+    // ----- general -----
+
     @GetMapping
-    public ResponseEntity<List<Permiso>> getAll() {
+    public ResponseEntity<List<Permiso>> getPermisos() {
         List<Permiso> permisos = permisoService.findAll();
-        if (!permisos.isEmpty()) {
-            return new ResponseEntity<>(permisos, HttpStatus.OK);
+        if (permisos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(permisos, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Permiso> save(@RequestBody Permiso permiso) {
-        Permiso encontrado = permisoService.findByIdPermiso(permiso.getIdPermiso());
-        if (encontrado == null) {
-            return new ResponseEntity<>(permisoService.save(permiso), HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    public ResponseEntity<Permiso> postPermiso(@RequestBody Permiso permiso) {
+        Permiso newPermiso = permisoService.save(permiso);
+        if (newPermiso == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        return new ResponseEntity<>(newPermiso, HttpStatus.CREATED);
     }
 
+    // ----- idPermiso -----
+
     @GetMapping("/idPermiso/{idPermiso}")
-    public ResponseEntity<Permiso> getById(@PathVariable int id) {
-        Permiso permiso = permisoService.findByIdPermiso(id);
-        if (permiso != null) {
-            return new ResponseEntity<>(permiso, HttpStatus.OK);
+    public ResponseEntity<Permiso> getPermisoPorId(@PathVariable int idPermiso) {
+        Permiso permiso = permisoService.findByIdPermiso(idPermiso);
+        if (permiso == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(permiso, HttpStatus.OK);
+    }
+
+    @PutMapping("/idPermiso/{idPermiso}")
+    public ResponseEntity<Permiso> updateById(@PathVariable int idPermiso, @RequestBody Permiso permiso) {
+        Permiso updatePermiso = permisoService.findByIdPermiso(idPermiso);
+        if (updatePermiso == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (permiso.getNombrePermiso() != null) {
+            updatePermiso.setNombrePermiso(permiso.getNombrePermiso());
+        }
+        if (permiso.getRoles() != null) {
+            updatePermiso.setRoles(permiso.getRoles());
+        }
+        permisoService.save(updatePermiso);
+        return ResponseEntity.ok(updatePermiso);
     }
 
     @DeleteMapping("/idPermiso/{idPermiso}")
-    public ResponseEntity<Void> deleteById(@PathVariable int id) {
-        Permiso permiso = permisoService.findByIdPermiso(id);
-        if (permiso != null) {
-            permisoService.deleteByIdPermiso(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteById(@PathVariable("idPermiso") int idPermiso) {
+        Permiso deletePermiso = permisoService.findByIdPermiso(idPermiso);
+        if (deletePermiso == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        permisoService.deleteById(idPermiso);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

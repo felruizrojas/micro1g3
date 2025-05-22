@@ -9,6 +9,7 @@ import com.micro1.micro1g3.model.Permiso;
 import com.micro1.micro1g3.repository.PermisoRepository;
 
 @Service
+
 public class PermisoService {
 
     @Autowired
@@ -26,7 +27,7 @@ public class PermisoService {
         return permisoRepository.findByIdPermiso(idPermiso);
     }
 
-    public void deleteByIdPermiso(int idPermiso) {
-        permisoRepository.deleteByIdPermiso(idPermiso);
+    public void deleteById(int idPermiso) {
+        permisoRepository.deleteById(idPermiso);
     }
 }

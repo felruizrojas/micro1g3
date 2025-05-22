@@ -8,51 +8,75 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.micro1.micro1g3.model.Rol;
+import com.micro1.micro1g3.service.PermisoService;
 import com.micro1.micro1g3.service.RolService;
 
 @RestController
 @RequestMapping("/api/roles")
-
 public class RolController {
 
     @Autowired
     private RolService rolService;
 
+        @Autowired
+    private PermisoService permisoService;
+
+    // ----- general -----
+
     @GetMapping
-    public ResponseEntity<List<Rol>> getAll() {
+    public ResponseEntity<List<Rol>> getRoles() {
         List<Rol> roles = rolService.findAll();
-        if (!roles.isEmpty()) {
-            return new ResponseEntity<>(roles, HttpStatus.OK);
+        if (roles.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Rol> save(@RequestBody Rol rol) {
-        Rol encontrado = rolService.findByIdRol(rol.getIdRol());
-        if (encontrado == null) {
-            return new ResponseEntity<>(rolService.save(rol), HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    public ResponseEntity<Rol> postRol(@RequestBody Rol rol) {
+        Rol newRol = rolService.save(rol);
+        if (newRol == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        return new ResponseEntity<>(newRol, HttpStatus.CREATED);
     }
 
+    // ----- idRol -----
+
     @GetMapping("/idRol/{idRol}")
-    public ResponseEntity<Rol> getById(@PathVariable int idRol) {
+    public ResponseEntity<Rol> getRolPorId(@PathVariable int idRol) {
         Rol rol = rolService.findByIdRol(idRol);
-        if (rol != null) {
-            return new ResponseEntity<>(rol, HttpStatus.OK);
+        if (rol == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(rol, HttpStatus.OK);
+    }
+
+    @PutMapping("/idRol/{idRol}")
+    public ResponseEntity<Rol> updateById(@PathVariable int idRol, @RequestBody Rol rol) {
+        Rol updateRol = rolService.findByIdRol(idRol);
+        if (updateRol == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (rol.getNombreRol() != null) {
+            updateRol.setNombreRol(rol.getNombreRol());
+        }
+        if (rol.getPermisos() != null) {
+            updateRol.setPermisos(rol.getPermisos());
+        }
+
+        rolService.save(updateRol);
+        return ResponseEntity.ok(updateRol);
     }
 
     @DeleteMapping("/idRol/{idRol}")
-    public ResponseEntity<Void> deleteById(@PathVariable int id) {
-        Rol rol = rolService.findByIdRol(id);
-        if (rol != null) {
-            rolService.deleteByIdRol(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteById(@PathVariable int idRol) {
+        Rol deleteRol = rolService.findByIdRol(idRol);
+        if (deleteRol == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        rolService.deleteById(idRol);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

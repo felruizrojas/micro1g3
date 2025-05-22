@@ -14,16 +14,18 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<Usuario> findAll();
 
     @SuppressWarnings("unchecked")
-    
     Usuario save(Usuario usuario);
+
+    // ----- idUsuario -----
 
     Usuario findByIdUsuario(int idUsuario);
 
-    void deleteById(int idUsuario);
+    void deleteByIdUsuario(int idUsuario);
+
+    // ----- run -----
 
     Usuario findByRun(String run);
 
     void deleteByRun(String run);
 
-    boolean existsByRun(String run);
 }
