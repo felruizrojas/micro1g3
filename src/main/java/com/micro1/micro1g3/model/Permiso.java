@@ -3,8 +3,6 @@ package com.micro1.micro1g3.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +30,6 @@ public class Permiso {
     private String nombrePermiso;
 
     @ManyToMany(mappedBy = "permisos")
-    @JsonBackReference
     private List<Rol> roles = new ArrayList<>();
 }
 

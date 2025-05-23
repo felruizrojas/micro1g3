@@ -3,8 +3,6 @@ package com.micro1.micro1g3.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,10 +35,8 @@ public class Rol {
 
     @ManyToMany()
     @JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "id_rol"), inverseJoinColumns = @JoinColumn(name = "id_permiso"))
-    @JsonManagedReference
     private List<Permiso> permisos = new ArrayList<>();
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Usuario> usuarios = new ArrayList<>();
 }
