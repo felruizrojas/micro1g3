@@ -21,10 +21,9 @@ import com.micro1.micro1g3.service.UsuarioService;
 @RequestMapping("/api/usuarios")
 
 public class UsuarioController {
+    
     @Autowired
     private UsuarioService usuarioService;
-
-    // ----- general -----
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsuarios() {
@@ -44,8 +43,6 @@ public class UsuarioController {
         return new ResponseEntity<>(newUsuario, HttpStatus.CREATED);
     }
 
-    // ----- idUsuario -----
-
     @GetMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Usuario> getUsuarioPorId(@PathVariable int idUsuario) {
         Usuario usuario = usuarioService.findByIdUsuario(idUsuario);
@@ -58,30 +55,6 @@ public class UsuarioController {
     @PatchMapping("/idUsuario/{idUsuario}")
     public ResponseEntity<Usuario> updateById(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
         Usuario updateUsuario = usuarioService.findByIdUsuario(idUsuario);
-        if (updateUsuario == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        if (usuario.getNombrePrimero() != null) {
-            updateUsuario.setNombrePrimero(usuario.getNombrePrimero());
-        }
-        if (usuario.getNombreSegundo() != null) {
-            updateUsuario.setNombreSegundo(usuario.getNombreSegundo());
-        }
-        if (usuario.getApellidoPaterno() != null) {
-            updateUsuario.setApellidoPaterno(usuario.getApellidoPaterno());
-        }
-        if (usuario.getApellidoMaterno() != null) {
-            updateUsuario.setApellidoMaterno(usuario.getApellidoMaterno());
-        }
-        if (usuario.getCorreo() != null) {
-            updateUsuario.setCorreo(usuario.getCorreo());
-        }
-        if (usuario.getDireccion() != null) {
-            updateUsuario.setDireccion(usuario.getDireccion());
-        }
-        if (usuario.getRol() != null) {
-            updateUsuario.setRol(usuario.getRol());
-        }
         usuarioService.save(updateUsuario);
         return ResponseEntity.ok(updateUsuario);
     }
@@ -92,59 +65,7 @@ public class UsuarioController {
         if (deleteUsuario == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        usuarioService.deleteById(idUsuario);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    // ----- run -----
-
-    @GetMapping("/run/{run}")
-    public ResponseEntity<Usuario> getUsuarioPorRun(@PathVariable String run) {
-        Usuario usuario = usuarioService.findByRun(run);
-        if (usuario == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
-    }
-
-    @PatchMapping("/run/{run}")
-    public ResponseEntity<Usuario> updateByRun(@PathVariable String run, @RequestBody Usuario usuario) {
-        Usuario updateUsuario = usuarioService.findByRun(run);
-        if (updateUsuario == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        if (usuario.getNombrePrimero() != null) {
-            updateUsuario.setNombrePrimero(usuario.getNombrePrimero());
-        }
-        if (usuario.getNombreSegundo() != null) {
-            updateUsuario.setNombreSegundo(usuario.getNombreSegundo());
-        }
-        if (usuario.getApellidoPaterno() != null) {
-            updateUsuario.setApellidoPaterno(usuario.getApellidoPaterno());
-        }
-        if (usuario.getApellidoMaterno() != null) {
-            updateUsuario.setApellidoMaterno(usuario.getApellidoMaterno());
-        }
-        if (usuario.getCorreo() != null) {
-            updateUsuario.setCorreo(usuario.getCorreo());
-        }
-        if (usuario.getDireccion() != null) {
-            updateUsuario.setDireccion(usuario.getDireccion());
-        }
-        if (usuario.getRol() != null) {
-            updateUsuario.setRol(usuario.getRol());
-        }
-        usuarioService.save(updateUsuario);
-        return ResponseEntity.ok(updateUsuario);
-    }
-
-    @DeleteMapping("/run/{run}")
-    public ResponseEntity<Void> deleteByRun(@PathVariable("run") String run) {
-        Usuario deleteUsuario = usuarioService.findByRun(run);
-        if (deleteUsuario == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        usuarioService.deleteByRun(run);
+        usuarioService.deleteByIdUsuario(idUsuario);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

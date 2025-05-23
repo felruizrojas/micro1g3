@@ -25,7 +25,7 @@ public class RolService {
         return rolRepository.findByIdRol(idRol);
     }
 
-    public void deleteById(int idRol) {
+    public void deleteByIdRol(int idRol) {
         rolRepository.deleteByIdRol(idRol);
     }
 }

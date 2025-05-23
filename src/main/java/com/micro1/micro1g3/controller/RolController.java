@@ -79,7 +79,7 @@ public class RolController {
         if (deleteRol == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        rolService.deleteById(idRol);
+        rolService.deleteByIdRol(idRol);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

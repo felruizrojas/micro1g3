@@ -21,11 +21,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findByIdUsuario(int idUsuario);
 
     void deleteByIdUsuario(int idUsuario);
-
-    // ----- run -----
-
-    Usuario findByRun(String run);
-
-    void deleteByRun(String run);
-
 }

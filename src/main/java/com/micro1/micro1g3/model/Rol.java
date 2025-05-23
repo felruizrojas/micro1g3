@@ -1,8 +1,8 @@
 package com.micro1.micro1g3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -32,14 +32,15 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
 
-    @Column(length = 50, nullable = false, unique = true) // sin unique
+    @Column(length = 50, nullable = false)
     private String nombreRol;
 
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany()
+    @JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "id_rol"), inverseJoinColumns = @JoinColumn(name = "id_permiso"))
     @JsonManagedReference
-    private List<Usuario> usuarios;
+    private List<Permiso> permisos = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "rol_permiso", joinColumns = @JoinColumn(name = "idRol"), inverseJoinColumns = @JoinColumn(name = "idPermiso"))
-    private List<Permiso> permisos;
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Usuario> usuarios = new ArrayList<>();
 }

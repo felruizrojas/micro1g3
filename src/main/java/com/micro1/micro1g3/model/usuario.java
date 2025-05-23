@@ -47,7 +47,7 @@ public class Usuario {
     private String direccion;
 
     @ManyToOne
-    @JoinColumn(name = "idRol")
+    @JoinColumn(name = "id_rol")
     @JsonBackReference
     private Rol rol;
 }

@@ -25,18 +25,8 @@ public class UsuarioService {
         return usuarioRepository.findByIdUsuario(idUsuario);
     }
 
-    public void deleteById(int idUsuario) {
+    public void deleteByIdUsuario(int idUsuario) {
         usuarioRepository.deleteByIdUsuario(idUsuario);
     }
-
-    public Usuario findByRun(String run) {
-        return usuarioRepository.findByRun(run);
-    }
-
-    public void deleteByRun(String run) {
-        Usuario usuario = usuarioRepository.findByRun(run);
-        if (usuario != null) {
-            usuarioRepository.delete(usuario);
-        }
-    }
 }
+

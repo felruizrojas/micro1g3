@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.model.Permiso;
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.service.PermisoService;
 
 @RestController
@@ -65,9 +66,14 @@ public class PermisoController {
         if (permiso.getNombrePermiso() != null) {
             updatePermiso.setNombrePermiso(permiso.getNombrePermiso());
         }
+
         if (permiso.getRoles() != null) {
+            for (Rol rol : permiso.getRoles()) {
+                rol.getPermisos().add(updatePermiso); // Asegura relación inversa
+            }
             updatePermiso.setRoles(permiso.getRoles());
         }
+
         permisoService.save(updatePermiso);
         return ResponseEntity.ok(updatePermiso);
     }
@@ -82,3 +88,4 @@ public class PermisoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
+
