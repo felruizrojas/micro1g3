@@ -17,17 +17,15 @@ public class PermisoService {
         return permisoRepository.findAll();
     }
 
-    public Permiso save(Permiso permiso) {
-        return permisoRepository.save(permiso);
-    }
-
     public Permiso findByIdPermiso(int idPermiso) {
         return permisoRepository.findByIdPermiso(idPermiso);
+    }
+
+    public Permiso save(Permiso permiso) {
+        return permisoRepository.save(permiso);
     }
 
     public void deleteById(int idPermiso) {
         permisoRepository.deleteByIdPermiso(idPermiso);
     }
 }
-
-

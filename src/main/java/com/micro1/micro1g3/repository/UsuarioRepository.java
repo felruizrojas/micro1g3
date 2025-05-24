@@ -13,12 +13,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     List<Usuario> findAll();
 
+    Usuario findByIdUsuario(int idUsuario); // ---con esta bastaría
+
     @SuppressWarnings("unchecked")
     Usuario save(Usuario usuario);
 
-    // ----- idUsuario -----
-
-    Usuario findByIdUsuario(int idUsuario);
-
-    void deleteByIdUsuario(int idUsuario);
+    void deleteByIdUsuario(int idUsuario); // ---con esta bastaría
 }

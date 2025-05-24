@@ -12,10 +12,10 @@ public interface RolRepository extends JpaRepository<Rol, Integer> {
 
     List<Rol> findAll();
 
+    Rol findByIdRol(int idRol);
+
     @SuppressWarnings("unchecked")
     Rol save(Rol rol);
-
-    Rol findByIdRol(int idRol);
 
     void deleteByIdRol(int idRol);
 }

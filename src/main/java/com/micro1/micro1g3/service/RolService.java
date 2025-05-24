@@ -17,12 +17,12 @@ public class RolService {
         return rolRepository.findAll();
     }
 
-    public Rol save(Rol rol) {
-        return rolRepository.save(rol);
-    }
-
     public Rol findByIdRol(int idRol) {
         return rolRepository.findByIdRol(idRol);
+    }
+
+    public Rol save(Rol rol) {
+        return rolRepository.save(rol);
     }
 
     public void deleteByIdRol(int idRol) {
