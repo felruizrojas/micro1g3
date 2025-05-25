@@ -7,8 +7,6 @@ import com.micro1.micro1g3.repository.PermisoRepository;
 import com.micro1.micro1g3.repository.RolRepository;
 import com.micro1.micro1g3.repository.UsuarioRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

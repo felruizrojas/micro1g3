@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.model.Permiso;
-import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.service.PermisoService;
 
 @RestController
