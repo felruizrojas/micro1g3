@@ -27,9 +27,9 @@ public class RolController {
         return rolService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Rol getRolById(@PathVariable int id) {
-        return rolService.findByIdRol(id);
+    @GetMapping("/{idRol}")
+    public Rol getRolByIdRol(@PathVariable int idRol) {
+        return rolService.findByIdRol(idRol);
     }
 
     @PostMapping
@@ -37,14 +37,14 @@ public class RolController {
         return rolService.save(rol);
     }
 
-    @PutMapping("/{id}")
-    public Rol updateRol(@PathVariable int id, @RequestBody Rol rol) {
-        rol.setIdRol(id);
+    @PutMapping("/{idRol}")
+    public Rol updateRol(@PathVariable int idRol, @RequestBody Rol rol) {
+        rol.setIdRol(idRol);
         return rolService.save(rol);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteRol(@PathVariable int id) {
-        rolService.deleteByIdRol(id);
+    @DeleteMapping("/{idRol}")
+    public void deleteRol(@PathVariable int idRol) {
+        rolService.deleteByIdRol(idRol);
     }
 }

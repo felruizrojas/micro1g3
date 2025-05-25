@@ -28,9 +28,9 @@ public class PermisoController {
         return permisoService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Permiso getPermisoById(@PathVariable int id) {
-        return permisoService.findByIdPermiso(id);
+    @GetMapping("/{idPermiso}")
+    public Permiso getPermisoByIdPermiso(@PathVariable int idPermiso) {
+        return permisoService.findByIdPermiso(idPermiso);
     }
 
     @PostMapping
@@ -38,14 +38,14 @@ public class PermisoController {
         return permisoService.save(permiso);
     }
 
-    @PutMapping("/{id}")
-    public Permiso updatePermiso(@PathVariable int id, @RequestBody Permiso permiso) {
-        permiso.setIdPermiso(id);
+    @PutMapping("/{idPermiso}")
+    public Permiso updatePermiso(@PathVariable int idPermiso, @RequestBody Permiso permiso) {
+        permiso.setIdPermiso(idPermiso);
         return permisoService.save(permiso);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePermiso(@PathVariable int id) {
-        permisoService.deleteById(id);
+    @DeleteMapping("/{idPermiso}")
+    public void deletePermiso(@PathVariable int idPermiso) {
+        permisoService.deleteByIdPermiso(idPermiso);
     }
 }

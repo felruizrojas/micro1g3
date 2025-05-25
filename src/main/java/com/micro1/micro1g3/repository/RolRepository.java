@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.micro1.micro1g3.model.Rol;
 
 @Repository
+
 public interface RolRepository extends JpaRepository<Rol, Integer> {
 
     List<Rol> findAll();

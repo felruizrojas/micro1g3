@@ -1,5 +1,7 @@
 package com.micro1.micro1g3.service;
 
+import com.micro1.micro1g3.model.Permiso;
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
 import com.micro1.micro1g3.repository.UsuarioRepository;
 
@@ -29,6 +31,12 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
+        for (Rol rol : usuario.getRoles()) {
+            rol.setUsuario(usuario);
+            for (Permiso permiso : rol.getPermisos()) {
+                permiso.setRol(rol);
+            }
+        }
         return usuarioRepository.save(usuario);
     }
 

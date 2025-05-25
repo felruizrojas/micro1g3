@@ -25,7 +25,7 @@ public class PermisoService {
         return permisoRepository.save(permiso);
     }
 
-    public void deleteById(int idPermiso) {
+    public void deleteByIdPermiso(int idPermiso) {
         permisoRepository.deleteByIdPermiso(idPermiso);
     }
 }

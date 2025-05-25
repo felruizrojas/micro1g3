@@ -33,7 +33,7 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String nombreRol;
 
     @ManyToOne(fetch = FetchType.LAZY)

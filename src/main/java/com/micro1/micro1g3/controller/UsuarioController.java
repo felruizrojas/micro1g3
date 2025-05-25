@@ -3,6 +3,8 @@ package com.micro1.micro1g3.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
 import com.micro1.micro1g3.service.UsuarioService;
 
@@ -28,24 +31,28 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable int id) {
-        return usuarioService.findByIdUsuario(id);
+    @GetMapping("/{idUsuario}")
+    public Usuario getUsuarioByIdUsuario(@PathVariable int idUsuario) {
+        return usuarioService.findByIdUsuario(idUsuario);
     }
 
-    @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
+    @PostMapping //Asegura la relación bidireccional
+    public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
+        for (Rol rol : usuario.getRoles()) {
+            rol.setUsuario(usuario); // Establece la relación bidireccional
+        }
+        Usuario nuevoUsuario = usuarioService.save(usuario);
+        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{idUsuario}")
+    public Usuario updateUsuario(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
+        usuario.setIdUsuario(idUsuario);
         return usuarioService.save(usuario);
     }
 
-    @PutMapping("/{id}")
-    public Usuario updateUsuario(@PathVariable int id, @RequestBody Usuario usuario) {
-        usuario.setIdUsuario(id);
-        return usuarioService.save(usuario);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable int id) {
-        usuarioService.deleteByIdUsuario(id);
+    @DeleteMapping("/{idUsuario}")
+    public void deleteUsuario(@PathVariable int idUsuario) {
+        usuarioService.deleteByIdUsuario(idUsuario);
     }
 }

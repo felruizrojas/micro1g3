@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.micro1.micro1g3.model.Permiso;
 
 @Repository
+
 public interface PermisoRepository extends JpaRepository<Permiso, Integer> {
 
     List<Permiso> findAll();
