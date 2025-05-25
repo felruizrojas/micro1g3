@@ -3,6 +3,8 @@ package com.micro1.micro1g3.service;
 import com.micro1.micro1g3.model.Permiso;
 import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
+import com.micro1.micro1g3.repository.PermisoRepository;
+import com.micro1.micro1g3.repository.RolRepository;
 import com.micro1.micro1g3.repository.UsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -18,24 +20,38 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private RolRepository rolRepository;
+
+    @Autowired
+    private PermisoRepository permisoRepository;
+
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
 
     public Usuario findByIdUsuario(int idUsuario) {
-        Usuario usuario = usuarioRepository.findByIdUsuario(idUsuario);
-        if (usuario == null) {
-            throw new EntityNotFoundException("Usuario no encontrado con ID: " + idUsuario);
-        }
-        return usuario;
+        return usuarioRepository.findByIdUsuario(idUsuario);
     }
 
     public Usuario save(Usuario usuario) {
         for (Rol rol : usuario.getRoles()) {
-            rol.setUsuario(usuario);
-            for (Permiso permiso : rol.getPermisos()) {
-                permiso.setRol(rol);
+            // Reutilizar rol si ya existe
+            Rol rolExistente = rolRepository.findByNombreRol(rol.getNombreRol());
+            if (rolExistente != null) {
+                rol = rolExistente;
+            } else {
+                rol.setUsuario(usuario);
+                for (Permiso permiso : rol.getPermisos()) {
+                    Permiso permisoExistente = permisoRepository.findByNombrePermiso(permiso.getNombrePermiso());
+                    if (permisoExistente != null) {
+                        permiso = permisoExistente;
+                    } else {
+                        permiso.setRol(rol);
+                    }
+                }
             }
+            rol.setUsuario(usuario); // Asegurar la relación inversa
         }
         return usuarioRepository.save(usuario);
     }

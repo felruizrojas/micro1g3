@@ -10,38 +10,43 @@ https://github.com/felruizrojas/micro1g3.git
 
 ## MÉTODOS HTTP
 
-
 ### POST PARA INGRESAR USUARIO, ROL Y PERMISO:
 localhost:8080/api/usuarios
 {
-  "run": "12345678-9",
-  "nombrePrimero": "Felipe",
-  "nombreSegundo": "Andrés",
-  "apellidoPaterno": "Ruiz",
-  "apellidoMaterno": "Rojas",
-  "correo": "felipe@example.com",
-  "direccion": "Av. Siempre Viva 123",
-  "ciudad": "Concepción",
-  "region": "Biobío",
+  "run": "Prueba2",
+  "nombrePrimero": "Prueba2",
+  "nombreSegundo": "Prueba2",
+  "apellidoPaterno": "Prueba2",
+  "apellidoMaterno": "Prueba2",
+  "correo": "Prueba2",
+  "direccion": "Prueba2",
+  "ciudad": "Prueba2",
+  "region": "Prueba2",
   "roles": [
     {
-      "nombreRol": "ADMIN",
+      "nombreRol": "Prueba2",
       "permisos": [
         {
-          "nombrePermiso": "GESTION_USUARIOS"
-        },
-        {
-          "nombrePermiso": "GESTION_VENTAS"
+            "nombrePermiso": "Prueba2"
         }
       ]
+    }
+  ]
+}
+
+
+### POST PARA INGRESAR ROL Y PERMISO(S):
+{
+  "nombreRol": "ADMINISTRADOR",
+  "permisos": [
+    {
+      "nombrePermiso": "CREAR_USUARIO"
     },
     {
-      "nombreRol": "VENDEDOR",
-      "permisos": [
-        {
-          "nombrePermiso": "VER_PRODUCTOS"
-        }
-      ]
+      "nombrePermiso": "EDITAR_USUARIO"
+    },
+    {
+      "nombrePermiso": "ELIMINAR_USUARIO"
     }
   ]
 }

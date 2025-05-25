@@ -22,7 +22,8 @@ public class PermisoService {
     }
 
     public Permiso save(Permiso permiso) {
-        return permisoRepository.save(permiso);
+        Permiso existente = permisoRepository.findByNombrePermiso(permiso.getNombrePermiso());
+        return existente != null ? existente : permisoRepository.save(permiso);
     }
 
     public void deleteByIdPermiso(int idPermiso) {

@@ -15,6 +15,8 @@ public interface PermisoRepository extends JpaRepository<Permiso, Integer> {
 
     Permiso findByIdPermiso(int idPermiso);
 
+    Permiso findByNombrePermiso(String nombrePermiso);
+    
     @SuppressWarnings("unchecked")
     Permiso save(Permiso permiso);
 
