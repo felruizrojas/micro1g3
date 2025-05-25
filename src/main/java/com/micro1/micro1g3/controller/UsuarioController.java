@@ -36,11 +36,8 @@ public class UsuarioController {
         return usuarioService.findByIdUsuario(idUsuario);
     }
 
-    @PostMapping //Asegura la relación bidireccional
+    @PostMapping
     public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
-        for (Rol rol : usuario.getRoles()) {
-            rol.setUsuario(usuario); // Establece la relación bidireccional
-        }
         Usuario nuevoUsuario = usuarioService.save(usuario);
         return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     }

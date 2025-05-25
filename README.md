@@ -13,21 +13,21 @@ https://github.com/felruizrojas/micro1g3.git
 ### POST PARA INGRESAR USUARIO, ROL Y PERMISO:
 localhost:8080/api/usuarios
 {
-  "run": "Prueba2",
-  "nombrePrimero": "Prueba2",
-  "nombreSegundo": "Prueba2",
-  "apellidoPaterno": "Prueba2",
-  "apellidoMaterno": "Prueba2",
-  "correo": "Prueba2",
-  "direccion": "Prueba2",
-  "ciudad": "Prueba2",
-  "region": "Prueba2",
+  "run": "Prueba1",
+  "nombrePrimero": "Prueba1",
+  "nombreSegundo": "Prueba1",
+  "apellidoPaterno": "Prueba1",
+  "apellidoMaterno": "Prueba1",
+  "correo": "Prueba1",
+  "direccion": "Prueba1",
+  "ciudad": "Prueba1",
+  "region": "Prueba1",
   "roles": [
     {
-      "nombreRol": "Prueba2",
+      "nombreRol": "Prueba1",
       "permisos": [
         {
-            "nombrePermiso": "Prueba2"
+            "nombrePermiso": "Prueba1"
         }
       ]
     }

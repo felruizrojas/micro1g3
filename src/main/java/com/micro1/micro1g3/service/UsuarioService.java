@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,24 +36,33 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
+        List<Rol> rolesFinales = new ArrayList<>();
+
         for (Rol rol : usuario.getRoles()) {
-            // Reutilizar rol si ya existe
+            // Buscar si el rol ya existe
             Rol rolExistente = rolRepository.findByNombreRol(rol.getNombreRol());
+
             if (rolExistente != null) {
-                rol = rolExistente;
+                rolesFinales.add(rolExistente); // Reutilizar el existente
             } else {
-                rol.setUsuario(usuario);
+                // Verificar y reutilizar permisos si ya existen
+                List<Permiso> permisosFinales = new ArrayList<>();
                 for (Permiso permiso : rol.getPermisos()) {
                     Permiso permisoExistente = permisoRepository.findByNombrePermiso(permiso.getNombrePermiso());
                     if (permisoExistente != null) {
-                        permiso = permisoExistente;
+                        permisosFinales.add(permisoExistente);
                     } else {
-                        permiso.setRol(rol);
+                        permiso.setRol(rol); // asignar nueva relación
+                        permisosFinales.add(permiso);
                     }
                 }
+                rol.setPermisos(permisosFinales);
+                rol.setUsuario(usuario); // asignar relación usuario -> rol
+                rolesFinales.add(rol);
             }
-            rol.setUsuario(usuario); // Asegurar la relación inversa
         }
+
+        usuario.setRoles(rolesFinales);
         return usuarioRepository.save(usuario);
     }
 

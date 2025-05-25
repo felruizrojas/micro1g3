@@ -29,29 +29,23 @@ public class RolService {
     }
 
     public Rol save(Rol rol) {
-        // Verifica si ya existe un rol con el mismo nombre
-        Rol rolExistente = rolRepository.findByNombreRol(rol.getNombreRol());
-        if (rolExistente != null) {
-            // Si existe, reutiliza el rol existente
-            rol = rolExistente;
-        } else {
-            // Si no existe, guarda el nuevo rol
-            rol = rolRepository.save(rol);
+        Rol existente = rolRepository.findByNombreRol(rol.getNombreRol());
+        if (existente != null) {
+            return existente; // Evitar duplicado
         }
 
-        // Lista para almacenar los permisos actualizados
-        List<Permiso> permisosActualizados = new ArrayList<>();
+        List<Permiso> permisosFinales = new ArrayList<>();
         for (Permiso permiso : rol.getPermisos()) {
             Permiso permisoExistente = permisoRepository.findByNombrePermiso(permiso.getNombrePermiso());
             if (permisoExistente != null) {
-                permisosActualizados.add(permisoExistente);
+                permisosFinales.add(permisoExistente);
             } else {
-                permiso.setRol(rol); // Asocia el permiso nuevo al rol
-                permisosActualizados.add(permiso);
+                permiso.setRol(rol);
+                permisosFinales.add(permiso);
             }
         }
 
-        rol.setPermisos(permisosActualizados); // Establece la lista final de permisos
+        rol.setPermisos(permisosFinales);
         return rolRepository.save(rol);
     }
 
