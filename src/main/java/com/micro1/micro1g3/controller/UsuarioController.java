@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.micro1.micro1g3.dto.UsuarioDTO;
 import com.micro1.micro1g3.model.Usuario;
 import com.micro1.micro1g3.service.UsuarioService;
 
@@ -41,8 +41,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevo = usuarioService.crearUsuario(usuario);
-        return ResponseEntity.ok(nuevo);
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario();
+        usuario.setRun(usuarioDTO.getRun());
+        usuario.setNombre(usuarioDTO.getNombre());
+
+        Usuario creado = usuarioService.crearUsuarioConRoles(usuario, usuarioDTO.getRoles());
+        return ResponseEntity.ok(creado);
     }
 }

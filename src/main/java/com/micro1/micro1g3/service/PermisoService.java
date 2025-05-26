@@ -1,6 +1,7 @@
 package com.micro1.micro1g3.service;
 
 import com.micro1.micro1g3.model.Permiso;
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.repository.PermisoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class PermisoService {
 
     public Optional<Permiso> permisoPorId(int id) {
         return permisoRepository.findById(id);
+    }
+
+    public Permiso crearPermiso(Permiso permiso) {
+        return permisoRepository.save(permiso);
     }
 }

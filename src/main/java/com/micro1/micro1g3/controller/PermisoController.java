@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.model.Permiso;
+import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.service.PermisoService;
 
 @RestController
@@ -35,5 +38,11 @@ public class PermisoController {
     public ResponseEntity<Permiso> getPermisoPorId(@PathVariable int id) {
         Optional<Permiso> permisos = permisoService.permisoPorId(id);
         return permisos.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Permiso> crearPermiso(@RequestBody Permiso permiso) {
+        Permiso permisos = permisoService.crearPermiso(permiso);
+        return ResponseEntity.ok(permisos);
     }
 }
