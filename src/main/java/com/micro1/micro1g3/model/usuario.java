@@ -33,7 +33,28 @@ public class Usuario {
     private String run;
 
     @Column(length = 50, nullable = false)
-    private String nombre;
+    private String nomPrimero;
+
+    @Column(length = 50)
+    private String nomSegundo;
+
+    @Column(length = 50, nullable = false)
+    private String apPaterno;
+
+    @Column(length = 50, nullable = false)
+    private String apMaterno;
+
+    @Column(length = 100, nullable = false)
+    private String correo;
+
+    @Column(length = 250, nullable = false)
+    private String direccion;
+
+    @Column(length = 250, nullable = false)
+    private String ciudad;
+
+    @Column(length = 250, nullable = false)
+    private String region;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))

@@ -8,7 +8,15 @@ import lombok.NoArgsConstructor;
 
 public class UsuarioDTO {
     
-    private String run;
-    private String nombre;
-    private String rolNombre;
+    private String run; // Asumiendo que este campo es necesario para la creación del usuario
+    private String nomPrimero;
+    private String nomSegundo;
+    private String apPaterno;
+    private String apMaterno;
+    private String correo;
+    private String direccion;
+    private String ciudad;
+    private String region;
+    private String rolNombre; // Asumiendo que este campo es necesario para la creación del usuario
+    
 }

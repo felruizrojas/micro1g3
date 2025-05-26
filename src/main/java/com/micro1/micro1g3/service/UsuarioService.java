@@ -33,8 +33,16 @@ public class UsuarioService {
 
     public Usuario crearUsuario(UsuarioDTO dto) {
         Usuario usuario = new Usuario();
-        usuario.setNombre(dto.getNombre());
+
         usuario.setRun(dto.getRun());
+        usuario.setNomPrimero(dto.getNomPrimero());
+        usuario.setNomSegundo(dto.getNomSegundo());
+        usuario.setApPaterno(dto.getApPaterno());
+        usuario.setApMaterno(dto.getApMaterno());
+        usuario.setCorreo(dto.getCorreo());
+        usuario.setDireccion(dto.getDireccion());
+        usuario.setCiudad(dto.getCiudad());
+        usuario.setRegion(dto.getRegion());
 
         if (dto.getRolNombre() != null && !dto.getRolNombre().isBlank()) {
             Rol rol = rolRepository.findByNombre(dto.getRolNombre())
@@ -44,12 +52,11 @@ public class UsuarioService {
                         return rolRepository.save(nuevoRol);
                     });
 
-            // IMPORTANTE: estás usando List, no Set
             List<Rol> roles = new ArrayList<>();
             roles.add(rol);
             usuario.setRoles(roles);
         } else {
-            usuario.setRoles(new ArrayList<>()); // o null si prefieres
+            usuario.setRoles(new ArrayList<>()); // o null, según lógica de negocio
         }
 
         return usuarioRepository.save(usuario);
@@ -59,11 +66,32 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
 
         if (usuario == null) {
-            return null; // Podés manejar esto desde el controller con un 404
+            return null; // Puedes devolver null o manejarlo desde el controller con una respuesta 404
         }
 
-        if (dto.getNombre() != null) {
-            usuario.setNombre(dto.getNombre());
+        if (dto.getNomPrimero() != null) {
+            usuario.setNomPrimero(dto.getNomPrimero());
+        }
+        if (dto.getNomSegundo() != null) {
+            usuario.setNomSegundo(dto.getNomSegundo());
+        }
+        if (dto.getApPaterno() != null) {
+            usuario.setApPaterno(dto.getApPaterno());
+        }
+        if (dto.getApMaterno() != null) {
+            usuario.setApMaterno(dto.getApMaterno());
+        }
+        if (dto.getCorreo() != null) {
+            usuario.setCorreo(dto.getCorreo());
+        }
+        if (dto.getDireccion() != null) {
+            usuario.setDireccion(dto.getDireccion());
+        }
+        if (dto.getCiudad() != null) {
+            usuario.setCiudad(dto.getCiudad());
+        }
+        if (dto.getRegion() != null) {
+            usuario.setRegion(dto.getRegion());
         }
 
         return usuarioRepository.save(usuario);

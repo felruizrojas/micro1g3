@@ -11,13 +11,21 @@ https://github.com/felruizrojas/micro1g3.git
 ## MÉTODOS HTTP
 
 ### GET POR ID:
+localhost:8080/api/usuarios
 
 ### POST PARA INGRESAR USUARIO y/o ROL:
 localhost:8080/api/usuarios
 
 {
-  "nombre": "",
   "run": "",
+  "nomPrimero": "",
+  "nomSegundo": "",
+  "apPaterno": "",
+  "apMaterno": "",
+  "correo": "",
+  "direccion": "",
+  "ciudad": "",
+  "region": "",
   "rolNombre": ""
 }
 
@@ -40,7 +48,15 @@ localhost:8080/api/permisos
 localhost:8080/api/usuarios/1
 
 {
-  "nombre": ""
+  "nomPrimero": "",
+  "nomSegundo": "",
+  "apPaterno": "",
+  "apMaterno": "",
+  "correo": "",
+  "direccion": "",
+  "ciudad": "",
+  "region": "",
+  "rolNombre": ""
 }
 
 ### PUT PARA ROL Y PERMISO NO CREADO -- NO SE ESPERA MODIFICARLOS SOLO ELIMINARLOS

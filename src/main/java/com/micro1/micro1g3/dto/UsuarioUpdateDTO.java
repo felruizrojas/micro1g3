@@ -7,5 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class UsuarioUpdateDTO {
-    private String nombre;
+    private String nomPrimero;
+    private String nomSegundo;
+    private String apPaterno;
+    private String apMaterno;
+    private String correo;
+    private String direccion;
+    private String ciudad;
+    private String region;
 }
