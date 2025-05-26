@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,9 +29,8 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Enumerated(EnumType.STRING) // Esto guarda el nombre como texto en la BD
     @Column(length = 50, nullable = false, unique = true)
-    private NombreRol nombre;
+    private String nombre;
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore

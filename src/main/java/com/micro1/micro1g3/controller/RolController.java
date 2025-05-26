@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.micro1.micro1g3.dto.RolDTO;
 import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.service.RolService;
 
@@ -40,9 +41,9 @@ public class RolController {
     }
 
     @PostMapping
-    public ResponseEntity<Rol> crearRol(@RequestBody Rol rol) {
-        Rol roles = rolService.crearRol(rol);
-        return ResponseEntity.ok(roles);
+    public ResponseEntity<Rol> crearRol(@RequestBody RolDTO rolDTO) {
+        Rol nuevoRol = rolService.crearRolDesdeDTO(rolDTO);
+        return ResponseEntity.ok(nuevoRol);
     }
 
     @DeleteMapping("/{id}")

@@ -10,43 +10,39 @@ https://github.com/felruizrojas/micro1g3.git
 
 ## MÉTODOS HTTP
 
-### POST PARA INGRESAR USUARIO, ROL Y PERMISO:
+### GET POR ID:
+
+### POST PARA INGRESAR USUARIO y/o ROL:
 localhost:8080/api/usuarios
+
 {
-  "run": "Prueba1",
-  "nombrePrimero": "Prueba1",
-  "nombreSegundo": "Prueba1",
-  "apellidoPaterno": "Prueba1",
-  "apellidoMaterno": "Prueba1",
-  "correo": "Prueba1",
-  "direccion": "Prueba1",
-  "ciudad": "Prueba1",
-  "region": "Prueba1",
-  "roles": [
-    {
-      "nombreRol": "Prueba1",
-      "permisos": [
-        {
-            "nombrePermiso": "Prueba1"
-        }
-      ]
-    }
-  ]
+  "nombre": "",
+  "run": "",
+  "rolNombre": ""
 }
 
+### POST PARA INGRESAR USUARIO y/o ROL:
+localhost:8080/api/roles
 
-### POST PARA INGRESAR ROL Y PERMISO(S):
 {
-  "nombreRol": "ADMINISTRADOR",
-  "permisos": [
-    {
-      "nombrePermiso": "CREAR_USUARIO"
-    },
-    {
-      "nombrePermiso": "EDITAR_USUARIO"
-    },
-    {
-      "nombrePermiso": "ELIMINAR_USUARIO"
-    }
-  ]
+  "nombre": "",
+  "permisos": [""]
 }
+
+### POST PARA PERMISO:
+localhost:8080/api/permisos
+
+{
+  "nombre": ""
+}
+
+### PUT PARA USUARIO:
+localhost:8080/api/usuarios/1
+
+{
+  "nombre": ""
+}
+
+### PUT PARA ROL Y PERMISO NO CREADO -- NO SE ESPERA MODIFICARLOS SOLO ELIMINARLOS
+
+### DELETE POR ID:

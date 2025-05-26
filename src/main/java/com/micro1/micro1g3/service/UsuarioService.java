@@ -1,7 +1,7 @@
 package com.micro1.micro1g3.service;
 
+import com.micro1.micro1g3.dto.UsuarioDTO;
 import com.micro1.micro1g3.dto.UsuarioUpdateDTO;
-import com.micro1.micro1g3.model.NombreRol;
 import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
 import com.micro1.micro1g3.repository.RolRepository;
@@ -31,38 +31,29 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
-    }
+    public Usuario crearUsuario(UsuarioDTO dto) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(dto.getNombre());
+        usuario.setRun(dto.getRun());
 
-    public Usuario crearUsuarioConRoles(Usuario usuario, List<String> nombresRoles) {
-        List<Rol> roles = new ArrayList<>();
+        if (dto.getRolNombre() != null && !dto.getRolNombre().isBlank()) {
+            Rol rol = rolRepository.findByNombre(dto.getRolNombre())
+                    .orElseGet(() -> {
+                        Rol nuevoRol = new Rol();
+                        nuevoRol.setNombre(dto.getRolNombre());
+                        return rolRepository.save(nuevoRol);
+                    });
 
-        for (String nombre : nombresRoles) {
-            NombreRol nombreRol = NombreRol.valueOf(nombre.toUpperCase());
-            Rol rol = rolRepository.findByNombre(nombreRol)
-                    .orElseThrow();
+            // IMPORTANTE: estás usando List, no Set
+            List<Rol> roles = new ArrayList<>();
             roles.add(rol);
+            usuario.setRoles(roles);
+        } else {
+            usuario.setRoles(new ArrayList<>()); // o null si prefieres
         }
 
-        usuario.setRoles(roles);
         return usuarioRepository.save(usuario);
     }
-
-    // Stream + Optional.filter().map()
-    /*
-     * public Usuario crearUsuarioConRoles(Usuario usuario, List<String>
-     * nombresRoles) {
-     * List<Rol> roles = nombresRoles.stream()
-     * .map(nombre -> rolRepository.findByNombre(nombre))
-     * .filter(Optional::isPresent)
-     * .map(Optional::get)
-     * .toList();
-     * 
-     * usuario.setRoles(roles);
-     * return usuarioRepository.save(usuario);
-     * }
-     */
 
     public Usuario actualizarUsuario(int id, UsuarioUpdateDTO dto) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
