@@ -33,4 +33,5 @@ public class Permiso {
     @ManyToMany(mappedBy = "permisos")
     @JsonIgnore
     private List<Rol> roles;
+
 }
