@@ -1,11 +1,11 @@
 package com.micro1.micro1g3.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,29 +26,23 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public List<Usuario> getAllUsuarios() {
-        return usuarioService.findAll();
+    public ResponseEntity<List<Usuario>> getUsuarios() {
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        if (usuarios.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @GetMapping("/{idUsuario}")
-    public Usuario getUsuarioByIdUsuario(@PathVariable int idUsuario) {
-        return usuarioService.findByIdUsuario(idUsuario);
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> getUsuarioPorId(@PathVariable int id) {
+        Optional<Usuario> usuarios = usuarioService.usuarioPorId(id);
+        return usuarios.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevoUsuario = usuarioService.save(usuario);
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{idUsuario}")
-    public Usuario updateUsuario(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
-        usuario.setIdUsuario(idUsuario);
-        return usuarioService.save(usuario);
-    }
-
-    @DeleteMapping("/{idUsuario}")
-    public void deleteUsuario(@PathVariable int idUsuario) {
-        usuarioService.deleteByIdUsuario(idUsuario);
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevo = usuarioService.crearUsuario(usuario);
+        return ResponseEntity.ok(nuevo);
     }
 }

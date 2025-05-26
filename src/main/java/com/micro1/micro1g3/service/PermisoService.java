@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PermisoService {
@@ -13,24 +14,11 @@ public class PermisoService {
     @Autowired
     private PermisoRepository permisoRepository;
 
-    public List<Permiso> findAll() {
+    public List<Permiso> listarPermisos() {
         return permisoRepository.findAll();
     }
 
-    public Permiso findByIdPermiso(int idPermiso) {
-        return permisoRepository.findByIdPermiso(idPermiso);
-    }
-
-    public Permiso save(Permiso permiso) {
-        Permiso existente = permisoRepository.findByNombrePermiso(permiso.getNombrePermiso());
-        if (existente != null) {
-            return existente; // Evitar duplicado
-        }
-
-        return permisoRepository.save(permiso);
-    }
-
-    public void deleteByIdPermiso(int idPermiso) {
-        permisoRepository.deleteByIdPermiso(idPermiso);
+    public Optional<Permiso> permisoPorId(int id) {
+        return permisoRepository.findById(id);
     }
 }

@@ -1,16 +1,13 @@
 package com.micro1.micro1g3.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,29 +23,17 @@ public class PermisoController {
     private PermisoService permisoService;
 
     @GetMapping
-    public List<Permiso> getAllPermisos() {
-        return permisoService.findAll();
+    public ResponseEntity<List<Permiso>> getPermisos() {
+        List<Permiso> permisos = permisoService.listarPermisos();
+        if (permisos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(permisos, HttpStatus.OK);
     }
 
-    @GetMapping("/{idPermiso}")
-    public Permiso getPermisoByIdPermiso(@PathVariable int idPermiso) {
-        return permisoService.findByIdPermiso(idPermiso);
-    }
-
-    @PostMapping
-    public ResponseEntity<Permiso> savePermiso(@RequestBody Permiso permiso) {
-        Permiso nuevoPermiso = permisoService.save(permiso);
-        return new ResponseEntity<>(nuevoPermiso, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{idPermiso}")
-    public Permiso updatePermiso(@PathVariable int idPermiso, @RequestBody Permiso permiso) {
-        permiso.setIdPermiso(idPermiso);
-        return permisoService.save(permiso);
-    }
-
-    @DeleteMapping("/{idPermiso}")
-    public void deletePermiso(@PathVariable int idPermiso) {
-        permisoService.deleteByIdPermiso(idPermiso);
+    @GetMapping("/{id}")
+    public ResponseEntity<Permiso> getPermisoPorId(@PathVariable int id) {
+        Optional<Permiso> permisos = permisoService.permisoPorId(id);
+        return permisos.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
