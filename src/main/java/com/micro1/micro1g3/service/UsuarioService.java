@@ -1,6 +1,7 @@
 package com.micro1.micro1g3.service;
 
 import com.micro1.micro1g3.dto.UsuarioUpdateDTO;
+import com.micro1.micro1g3.model.NombreRol;
 import com.micro1.micro1g3.model.Rol;
 import com.micro1.micro1g3.model.Usuario;
 import com.micro1.micro1g3.repository.RolRepository;
@@ -36,9 +37,14 @@ public class UsuarioService {
 
     public Usuario crearUsuarioConRoles(Usuario usuario, List<String> nombresRoles) {
         List<Rol> roles = new ArrayList<>();
+
         for (String nombre : nombresRoles) {
-            rolRepository.findByNombre(nombre).ifPresent(roles::add);
+            NombreRol nombreRol = NombreRol.valueOf(nombre.toUpperCase());
+            Rol rol = rolRepository.findByNombre(nombreRol)
+                    .orElseThrow();
+            roles.add(rol);
         }
+
         usuario.setRoles(roles);
         return usuarioRepository.save(usuario);
     }
