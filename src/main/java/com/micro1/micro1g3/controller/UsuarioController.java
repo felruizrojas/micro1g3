@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.micro1.micro1g3.dto.UsuarioDTO;
@@ -52,12 +53,16 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int id, @RequestBody UsuarioUpdateDTO dto) {
         Usuario actualizado = usuarioService.actualizarUsuario(id, dto);
-
         if (actualizado == null) {
             return ResponseEntity.notFound().build(); // 404 si no existe
         }
-
         return ResponseEntity.ok(actualizado);
+    }
+
+    @PutMapping("/{id}/asignarRol")
+    public ResponseEntity<Usuario> asignarRol(@PathVariable int id, @RequestParam String rolNombre) {
+        Usuario actualizado = usuarioService.asignarRol(id, rolNombre);
+        return actualizado != null ? ResponseEntity.ok(actualizado) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

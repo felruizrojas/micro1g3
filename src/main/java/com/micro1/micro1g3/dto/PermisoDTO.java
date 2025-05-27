@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 
-public class RolDTO {
-    private String nombre;
-    private List<String> permisos;
+public class PermisoDTO {
+    //private String nombre;
+    //private List<String> roles;
 }

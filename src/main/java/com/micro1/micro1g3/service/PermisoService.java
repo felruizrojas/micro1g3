@@ -31,23 +31,6 @@ public class PermisoService {
         return permisoRepository.findById(id);
     }
 
-    /*
-     * public Permiso crearPermiso(Permiso permiso) {
-     * return permisoRepository.save(permiso);
-     * }
-     * //el de abajo conservarlo
-     * 
-     * public Permiso crearPermiso(Permiso permiso) {
-     * List<Rol> rolesGuardados = new ArrayList<>();
-     * for (Rol rol : permiso.getRoles()) {
-     * Rol guardado = rolRepository.save(rol); // Guardar primero
-     * rolesGuardados.add(guardado);
-     * }
-     * permiso.setRoles(rolesGuardados);
-     * return permisoRepository.save(permiso);
-     * }
-     */
-
     public Permiso crearPermiso(Permiso permiso) {
         List<Rol> rolesGuardados = new ArrayList<>();
 

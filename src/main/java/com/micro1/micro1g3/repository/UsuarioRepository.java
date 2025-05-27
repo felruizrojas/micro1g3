@@ -9,7 +9,4 @@ import com.micro1.micro1g3.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    //Usuario findById(int id);
-
-    //void deleteById(int id);
 }

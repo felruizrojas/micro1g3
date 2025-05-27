@@ -20,8 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity // en una entidad de intersección se crearía una clase @Data sin @Entity
-        // y se le asignaría la tabla de intersección
+@Entity // en una entidad de intersección se crearía una clase @Data sin @Entity y se le asignaría la tabla de intersección
 @Table(name = "usuarios")
 
 public class Usuario {

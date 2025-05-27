@@ -33,7 +33,6 @@ public class UsuarioService {
 
     public Usuario crearUsuario(UsuarioDTO dto) {
         Usuario usuario = new Usuario();
-
         usuario.setRun(dto.getRun());
         usuario.setNomPrimero(dto.getNomPrimero());
         usuario.setNomSegundo(dto.getNomSegundo());
@@ -43,7 +42,6 @@ public class UsuarioService {
         usuario.setDireccion(dto.getDireccion());
         usuario.setCiudad(dto.getCiudad());
         usuario.setRegion(dto.getRegion());
-
         if (dto.getRolNombre() != null && !dto.getRolNombre().isBlank()) {
             Rol rol = rolRepository.findByNombre(dto.getRolNombre())
                     .orElseGet(() -> {
@@ -51,24 +49,20 @@ public class UsuarioService {
                         nuevoRol.setNombre(dto.getRolNombre());
                         return rolRepository.save(nuevoRol);
                     });
-
             List<Rol> roles = new ArrayList<>();
             roles.add(rol);
             usuario.setRoles(roles);
         } else {
-            usuario.setRoles(new ArrayList<>()); // o null, según lógica de negocio
+            usuario.setRoles(new ArrayList<>());
         }
-
         return usuarioRepository.save(usuario);
     }
 
     public Usuario actualizarUsuario(int id, UsuarioUpdateDTO dto) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
-
         if (usuario == null) {
-            return null; // Puedes devolver null o manejarlo desde el controller con una respuesta 404
+            return null;
         }
-
         if (dto.getNomPrimero() != null) {
             usuario.setNomPrimero(dto.getNomPrimero());
         }
@@ -93,7 +87,24 @@ public class UsuarioService {
         if (dto.getRegion() != null) {
             usuario.setRegion(dto.getRegion());
         }
+        return usuarioRepository.save(usuario);
+    }
 
+    public Usuario asignarRol(int usuarioId, String rolNombre) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
+        if (usuarioOpt.isEmpty()) {
+            return null;
+        }
+        Usuario usuario = usuarioOpt.get();
+        Rol rol = rolRepository.findByNombre(rolNombre)
+                .orElseGet(() -> {
+                    Rol nuevoRol = new Rol();
+                    nuevoRol.setNombre(rolNombre);
+                    return rolRepository.save(nuevoRol);
+                });
+        if (!usuario.getRoles().contains(rol)) {
+            usuario.getRoles().add(rol);
+        }
         return usuarioRepository.save(usuario);
     }
 

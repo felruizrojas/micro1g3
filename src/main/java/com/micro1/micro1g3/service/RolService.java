@@ -23,64 +23,59 @@ public class RolService {
     @Autowired
     private PermisoRepository permisoRepository;
 
-    /**
-     * Lista todos los roles existentes.
-     */
     public List<Rol> listarRoles() {
         return rolRepository.findAll();
     }
 
-    /**
-     * Busca un rol por su ID.
-     */
     public Optional<Rol> rolPorId(int id) {
         return rolRepository.findById(id);
     }
 
-    /**
-     * Crea un nuevo rol a partir de un DTO.
-     * Si los permisos no existen, se crean.
-     */
     public Rol crearRolDesdeDTO(RolDTO rolDTO) {
         Rol rol = new Rol();
         rol.setNombre(rolDTO.getNombre());
-
         List<Permiso> permisosAsociados = new ArrayList<>();
-
         if (rolDTO.getPermisos() != null && !rolDTO.getPermisos().isEmpty()) {
             for (String nombrePermiso : rolDTO.getPermisos()) {
                 Permiso permiso = permisoRepository.findByNombre(nombrePermiso.trim())
                         .orElseGet(() -> {
-                            // Crear nuevo permiso si no existe
                             Permiso nuevoPermiso = new Permiso();
                             nuevoPermiso.setNombre(nombrePermiso.trim());
                             return permisoRepository.save(nuevoPermiso);
                         });
-
                 permisosAsociados.add(permiso);
             }
         }
-
         rol.setPermisos(permisosAsociados);
         return rolRepository.save(rol);
     }
 
-    /**
-     * Elimina un rol por su ID y limpia las relaciones.
-     */
+    public Rol asignarPermiso(int rolId, String permisoNombre) {
+        Optional<Rol> rolOpt = rolRepository.findById(rolId);
+        if (rolOpt.isEmpty()) {
+            return null;
+        }
+        Rol rol = rolOpt.get();
+        Permiso permiso = permisoRepository.findByNombre(permisoNombre.trim())
+                .orElseGet(() -> {
+                    Permiso nuevoPermiso = new Permiso();
+                    nuevoPermiso.setNombre(permisoNombre.trim());
+                    return permisoRepository.save(nuevoPermiso);
+                });
+        if (!rol.getPermisos().contains(permiso)) {
+            rol.getPermisos().add(permiso);
+        }
+        return rolRepository.save(rol);
+    }
+
     @Transactional
     public void eliminarRol(int id) {
         Optional<Rol> rolOpt = rolRepository.findById(id);
         if (rolOpt.isPresent()) {
             Rol rol = rolOpt.get();
-
-            // Limpiar relaciones con usuarios
             rol.getUsuarios().forEach(usuario -> usuario.getRoles().remove(rol));
             rol.getUsuarios().clear();
-
-            // Limpiar relaciones con permisos
             rol.getPermisos().clear();
-
             rolRepository.delete(rol);
         }
     }

@@ -59,6 +59,11 @@ localhost:8080/api/usuarios/1
   "rolNombre": ""
 }
 
-### PUT PARA ROL Y PERMISO NO CREADO -- NO SE ESPERA MODIFICARLOS SOLO ELIMINARLOS
+### PUT PARA ASIGNAR ROL A USUARIO
+localhost:8080/api/usuarios/5/asignarRol?rolNombre=ADMIN
+
+### PUT PARA ASIGNAR PERMISO A ROL
+localhost:8080/api/roles/3/asignarPermiso?permisoNombre=VER_REPORTES
 
 ### DELETE POR ID:
+localhost:8080/api/usuarios/1
