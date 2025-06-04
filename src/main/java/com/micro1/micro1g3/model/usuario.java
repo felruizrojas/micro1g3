@@ -59,3 +59,5 @@ public class Usuario {
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private List<Rol> roles;
 }
+
+/*04/06/2025*/
